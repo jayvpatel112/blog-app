@@ -10,7 +10,7 @@ My stored Post
     {% else %}
         <ul>
         {%for post in posts%}
-            <li><a href="{%url 'post-detail' post.slug %}">{{post.title}}</a></li>
+            <<h3>li><a href="{%url 'post-detail' post.slug %}">{{post.title}}</a></li></h3>
         {%endfor%}
         </ul>
     {% endif %}
