@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{%block page_title%}
+Latest Blog Post
+{%endblock%}
+
+{%block static_files%}
+<link rel="stylesheet" href="{% static 'allposts/li_style.css' %}">
+{%endblock%}
+
+{%block page_body%}
+<ul>
+    {%for post in posts%}
+    <li>
+        <a href={{post.get_absolute_url}}>
+            <img src= {{post.image.url}} alt={{post}}>
+            <h2>{{post.title}}</h2>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{%endblock%}

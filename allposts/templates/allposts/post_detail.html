@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{%block page_title%}
+    {{post_detail.title}}
+{%endblock%}
+
+{%block static_files%}
+<link rel="stylesheet" href="{% static 'allposts/post_detail.css' %}">
+{%endblock%}
+
+{%block page_body%}
+    <h2>{{post_detail.title}}</h2>
+    <img src={{post_detail.image.url}} alt={{post_detail}}>
+
+    <form action="{%url 'read-later'%}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" value={{post_detail.id}} name="post_id">
+        <button> 
+        {%if is_saved_for_later %}
+            remove from read later
+        {%else%}
+            Read later
+        {%endif%}
+        </button>
+    </form>
+
+    <p><b><span style="font-size:20px">Author first name: </span></b> {{post_detail.author.first_name}}</p>
+    <p><b><span style="font-size:20px">Author last name: </span></b> {{post_detail.author.last_name}}</p>
+    <p><b><span style="font-size:20px">blog content: </span></b> {{post_detail.content}}</p>
+
+    <h2> Comments </h2>
+    {% comment %} <ul> {% endcomment %}
+        {%for comment in allcomments%}
+        <li>
+            <h3>{{comment.user_name}}</h3>
+            <p>{{comment.content}}</p>
+        </li>
+        {% endfor %}
+    {% comment %} </ul> {% endcomment %}
+
+    <form action="/posts/{{post_detail.slug}}/" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Submit</button>
+    </form>
+{%endblock%}
